@@ -1,5 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { close } from '../utils/icons';
+import Results from './Results';
 
 function Instructions() {
     return (
@@ -78,7 +80,7 @@ function PlayerPreview({ username, onReset, label }) {
                     <a href={`https://github.com/${username}`} className='link'>{username}</a>
                 </div>
                 <button className='btn secondary icon' onClick={onReset}>
-                    close
+                    {close}
                 </button>
             </div>
         </article>
@@ -90,7 +92,8 @@ export default class Battle extends React.Component {
         super(props)
         this.state = {
             player1: null,
-            player2: null
+            player2: null,
+            battle: false
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleReset = this.handleReset.bind(this)
@@ -111,14 +114,18 @@ export default class Battle extends React.Component {
     }
 
     render() {
-        const { player1, player2 } = this.state
+        const { player1, player2, battle } = this.state
         const isBattleButtonDisabled = !player1 || !player2
+
+        if (battle == true) {
+            return <Results player1={player1} player2={player2} />
+        }
 
         return (
             <main className='stack main-stack animate-in'>
                 <div className='split'>
                     <h1>Players</h1>
-                    <a href='#' className={`btn primary ${isBattleButtonDisabled ? "disabled" : ""}`}>Battle</a>
+                    <button onClick={() => this.setState({ battle: true })} className={`btn primary ${isBattleButtonDisabled ? "disabled" : ""}`}>Battle</button>
                 </div>
                 <section className='grid'>
                     {player1 == null ? <PlayerInput label='Player1' onSubmit={(player) => { this.handleSubmit("player1", player) }

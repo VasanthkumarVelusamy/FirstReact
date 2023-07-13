@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { battle } from '../utils/api'
+import Loading from './Loading';
 
 function Card({ profile }) {
     const {
@@ -79,7 +80,7 @@ export default class Results extends React.Component {
     render() {
         const { winner, loser, error, loading } = this.state
         if (loading) {
-            return <i>LOADING</i>
+            return <Loading text='Battling' />
         }
         if (error) {
             return <p className='text-center error'>{error}</p>

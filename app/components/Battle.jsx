@@ -132,7 +132,6 @@ export default class Battle extends React.Component {
                     } /> :
                         <PlayerPreview label={"Player1"} onReset={() => this.handleReset("player1")} username={this.state.player1} />
                     }
-
                     {player2 == null ? <PlayerInput label='Player2' onSubmit={(player) => { this.handleSubmit("player2", player) }
                     } /> :
                         <PlayerPreview label={"Player2"} onReset={() => this.handleReset("player2")} username={this.state.player2} />
